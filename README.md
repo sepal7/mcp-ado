@@ -5,6 +5,21 @@ A comprehensive [Model Context Protocol (MCP)](https://modelcontextprotocol.io) 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B-green.svg)](https://nodejs.org/)
 
+## 🚀 Quick Install
+
+Easily install the MCP Server for Azure DevOps:
+
+**VS Code with GitHub Copilot:**
+[![Install in VS Code](https://img.shields.io/badge/Install-VS%20Code-blue?logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot-chat)
+
+**VS Code Insiders:**
+[![Install in VS Code Insiders](https://img.shields.io/badge/Install-VS%20Code%20Insiders-purple?logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot-chat)
+
+**Cursor IDE:**
+[![Install in Cursor](https://img.shields.io/badge/Install-Cursor-black?logo=cursor)](https://cursor.sh/)
+
+See [Installation](#-installation) below for detailed setup instructions.
+
 ## 📦 Available Tools (25+)
 
 ### Wiki (3 tools)
