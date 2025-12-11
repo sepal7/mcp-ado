@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json",
   "name": "io.github.sepal7/azure-devops",
-  "description": "MCP Server for Azure DevOps - Comprehensive 25+ tools with multi-project support, WIQL queries, and generic API tool for extensibility",
+  "description": "MCP Server for Azure DevOps with 25+ tools, multi-project support, and WIQL queries",
   "repository": {
     "url": "https://github.com/sepal7/mcp-ado",
     "source": "github"
