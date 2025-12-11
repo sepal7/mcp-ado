@@ -1,0 +1,39 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "projectCode": {
+      "value": "mcp"
+    },
+    "environment": {
+      "value": "dv"
+    },
+    "locationCode": {
+      "value": "eus2"
+    },
+    "instanceNumber": {
+      "value": "001"
+    },
+    "orgName": {
+      "value": "YourOrganization"
+    },
+    "projectName": {
+      "value": "Integration"
+    },
+    "adoPat": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/71ec4f78-f42e-41e1-96f4-b75a69a53851/resourceGroups/rg-00-integration-mcp-dv-eus2-001/providers/Microsoft.KeyVault/vaults/kyt-00-dv-mcp-001"
+        },
+        "secretName": "AzureDevOpsPAT"
+      }
+    },
+    "location": {
+      "value": "eastus2"
+    },
+    "enableExternalIngress": {
+      "value": false
+    }
+  }
+}
+

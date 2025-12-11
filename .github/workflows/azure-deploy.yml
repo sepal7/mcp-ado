@@ -1,0 +1,55 @@
+name: Deploy to Azure
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment (dv, qa, pr)'
+        required: true
+        default: 'dv'
+        type: choice
+        options:
+          - dv
+          - qa
+          - pr
+      projectCode:
+        description: 'Project Code'
+        required: true
+        default: 'mcp'
+      instanceNumber:
+        description: 'Instance Number'
+        required: true
+        default: '001'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    - name: Set subscription
+      run: |
+        az account set --subscription 71ec4f78-f42e-41e1-96f4-b75a69a53851
+    
+    - name: Deploy with Bicep
+      run: |
+        az deployment group create \
+          --resource-group rg-00-integration-${{ github.event.inputs.projectCode }}-${{ github.event.inputs.environment }}-eus2-${{ github.event.inputs.instanceNumber }} \
+          --template-file azure-deploy.bicep \
+          --parameters \
+            projectCode=${{ github.event.inputs.projectCode }} \
+            environment=${{ github.event.inputs.environment }} \
+            locationCode=eus2 \
+            instanceNumber=${{ github.event.inputs.instanceNumber }} \
+            orgName=TMNAServices \
+            projectName=Integration \
+            adoPat="${{ secrets.AZURE_DEVOPS_PAT }}" \
+            location=eastus2
+

@@ -1,0 +1,262 @@
+{
+  "name": "MCP-ADO-Server-Monitoring",
+  "properties": {
+    "lenses": [
+      {
+        "order": 0,
+        "parts": [
+          {
+            "position": {
+              "x": 0,
+              "y": 0,
+              "colSpan": 6,
+              "rowSpan": 4
+            },
+            "metadata": {
+              "type": "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
+              "settings": {
+                "content": {
+                  "Query": "requests\n| where timestamp > ago(24h)\n| where name startswith \"MCP Tool\"\n| summarize count() by bin(timestamp, 1h), name\n| render timechart",
+                  "PartTitle": "MCP Tool Calls (Last 24 Hours)",
+                  "PartSubTitle": "Incoming requests from Cursor IDE",
+                  "QueryType": 0,
+                  "PartId": "mcp-tool-calls-chart",
+                  "IsQueryBased": true,
+                  "TimeContext": {
+                    "durationMs": 86400000
+                  },
+                  "Visualization": "timechart"
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 6,
+              "y": 0,
+              "colSpan": 6,
+              "rowSpan": 4
+            },
+            "metadata": {
+              "type": "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
+              "settings": {
+                "content": {
+                  "Query": "dependencies\n| where timestamp > ago(24h)\n| where name startswith \"ADO API\"\n| summarize count() by bin(timestamp, 1h), success\n| render timechart",
+                  "PartTitle": "Azure DevOps API Calls (Last 24 Hours)",
+                  "PartSubTitle": "Outgoing API calls to Azure DevOps",
+                  "QueryType": 0,
+                  "PartId": "ado-api-calls-chart",
+                  "IsQueryBased": true,
+                  "TimeContext": {
+                    "durationMs": 86400000
+                  },
+                  "Visualization": "timechart"
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 0,
+              "y": 4,
+              "colSpan": 3,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "type": "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
+              "settings": {
+                "content": {
+                  "Query": "requests\n| where timestamp > ago(24h)\n| where name startswith \"MCP Tool\"\n| summarize count() by tostring(customDimensions.toolName)\n| order by count_ desc\n| take 10",
+                  "PartTitle": "Top 10 MCP Tools Used",
+                  "PartSubTitle": "Most frequently called tools",
+                  "QueryType": 0,
+                  "PartId": "top-tools",
+                  "IsQueryBased": true,
+                  "TimeContext": {
+                    "durationMs": 86400000
+                  },
+                  "Visualization": "table"
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 3,
+              "y": 4,
+              "colSpan": 3,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "type": "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
+              "settings": {
+                "content": {
+                  "Query": "dependencies\n| where timestamp > ago(24h)\n| where name startswith \"ADO API\"\n| summarize count() by tostring(customDimensions.endpoint)\n| order by count_ desc\n| take 10",
+                  "PartTitle": "Top 10 ADO API Endpoints",
+                  "PartSubTitle": "Most frequently called endpoints",
+                  "QueryType": 0,
+                  "PartId": "top-endpoints",
+                  "IsQueryBased": true,
+                  "TimeContext": {
+                    "durationMs": 86400000
+                  },
+                  "Visualization": "table"
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 6,
+              "y": 4,
+              "colSpan": 3,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "type": "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
+              "settings": {
+                "content": {
+                  "Query": "requests\n| where timestamp > ago(24h)\n| where name startswith \"MCP Tool\"\n| summarize avg(duration), p50(duration), p95(duration), p99(duration) by bin(timestamp, 1h)\n| render timechart",
+                  "PartTitle": "MCP Tool Response Times",
+                  "PartSubTitle": "Average, P50, P95, P99",
+                  "QueryType": 0,
+                  "PartId": "response-times",
+                  "IsQueryBased": true,
+                  "TimeContext": {
+                    "durationMs": 86400000
+                  },
+                  "Visualization": "timechart"
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 9,
+              "y": 4,
+              "colSpan": 3,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "type": "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
+              "settings": {
+                "content": {
+                  "Query": "exceptions\n| where timestamp > ago(24h)\n| summarize count() by bin(timestamp, 1h), tostring(customDimensions.toolName)\n| render timechart",
+                  "PartTitle": "Errors by Tool",
+                  "PartSubTitle": "Exceptions in the last 24 hours",
+                  "QueryType": 0,
+                  "PartId": "errors-chart",
+                  "IsQueryBased": true,
+                  "TimeContext": {
+                    "durationMs": 86400000
+                  },
+                  "Visualization": "timechart"
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 0,
+              "y": 7,
+              "colSpan": 6,
+              "rowSpan": 4
+            },
+            "metadata": {
+              "type": "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
+              "settings": {
+                "content": {
+                  "Query": "dependencies\n| where timestamp > ago(24h)\n| where name startswith \"ADO API\"\n| summarize avg(duration), p50(duration), p95(duration), p99(duration) by bin(timestamp, 1h)\n| render timechart",
+                  "PartTitle": "ADO API Response Times",
+                  "PartSubTitle": "Average, P50, P95, P99 response times",
+                  "QueryType": 0,
+                  "PartId": "ado-response-times",
+                  "IsQueryBased": true,
+                  "TimeContext": {
+                    "durationMs": 86400000
+                  },
+                  "Visualization": "timechart"
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 6,
+              "y": 7,
+              "colSpan": 6,
+              "rowSpan": 4
+            },
+            "metadata": {
+              "type": "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
+              "settings": {
+                "content": {
+                  "Query": "customEvents\n| where timestamp > ago(24h)\n| where name == \"MCP Tool Call\"\n| summarize count() by bin(timestamp, 1h), tostring(customDimensions.project)\n| render timechart",
+                  "PartTitle": "MCP Calls by Project",
+                  "PartSubTitle": "Activity breakdown by Azure DevOps project",
+                  "QueryType": 0,
+                  "PartId": "calls-by-project",
+                  "IsQueryBased": true,
+                  "TimeContext": {
+                    "durationMs": 86400000
+                  },
+                  "Visualization": "timechart"
+                }
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 0,
+              "y": 11,
+              "colSpan": 12,
+              "rowSpan": 3
+            },
+            "metadata": {
+              "type": "Extension/Microsoft_OperationsManagementSuite_Workspace/PartType/LogsDashboardPart",
+              "settings": {
+                "content": {
+                  "Query": "union requests, dependencies, exceptions\n| where timestamp > ago(24h)\n| project timestamp, itemType, name, customDimensions, duration, success, resultCode\n| order by timestamp desc\n| take 100",
+                  "PartTitle": "Recent Activity Log",
+                  "PartSubTitle": "Last 100 activities (requests, dependencies, exceptions)",
+                  "QueryType": 0,
+                  "PartId": "activity-log",
+                  "IsQueryBased": true,
+                  "TimeContext": {
+                    "durationMs": 86400000
+                  },
+                  "Visualization": "table"
+                }
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "model": {
+        "timeRange": {
+          "value": {
+            "relative": {
+              "duration": 24,
+              "timeUnit": 1
+            }
+          },
+          "type": "Msft.Portal.Markdown.Dashboard.TimeRange"
+        },
+        "filterLocale": {
+          "value": "en-us"
+        },
+        "filters": {
+          "value": {}
+        }
+      }
+    }
+  },
+  "location": "eastus2",
+  "tags": {
+    "hidden-title": "MCP ADO Server Monitoring"
+  },
+  "type": "Microsoft.Portal/dashboards"
+}
+

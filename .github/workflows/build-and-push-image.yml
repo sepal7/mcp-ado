@@ -1,0 +1,39 @@
+name: Build and Push Docker Image to ACR
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Dockerfile'
+      - 'package.json'
+      - 'server.js'
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    - name: Set subscription
+      run: |
+        az account set --subscription 71ec4f78-f42e-41e1-96f4-b75a69a53851
+    
+    - name: Login to ACR
+      run: |
+        az acr login --name acr00dvmcp001
+    
+    - name: Build and push image
+      run: |
+        az acr build \
+          --registry acr00dvmcp001 \
+          --image mcp-ado-server:latest \
+          --file Dockerfile .
+
