@@ -6,12 +6,12 @@
     "url": "https://github.com/sepal7/mcp-ado",
     "source": "github"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "@sepal7/mcp-ado-server",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "transport": {
         "type": "stdio"
       },

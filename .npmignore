@@ -55,3 +55,9 @@ test/
 # App Insights
 appinsights-connection-string.txt
 
+# MCP Publisher and binaries
+mcp-publisher.exe
+mcp-publisher
+*.exe
+*.tar.gz
+
