@@ -1,0 +1,43 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json",
+  "name": "io.github.sepal7/azure-devops",
+  "description": "MCP Server for Azure DevOps - Comprehensive 25+ tools with multi-project support, WIQL queries, and generic API tool for extensibility",
+  "repository": {
+    "url": "https://github.com/sepal7/mcp-ado",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@sepal7/mcp-ado-server",
+      "version": "1.0.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "description": "Azure DevOps organization name",
+          "isRequired": true,
+          "format": "string",
+          "isSecret": false,
+          "name": "AZURE_DEVOPS_ORG"
+        },
+        {
+          "description": "Azure DevOps project name",
+          "isRequired": true,
+          "format": "string",
+          "isSecret": false,
+          "name": "AZURE_DEVOPS_PROJECT"
+        },
+        {
+          "description": "Azure DevOps Personal Access Token",
+          "isRequired": true,
+          "format": "string",
+          "isSecret": true,
+          "name": "AZURE_DEVOPS_PAT"
+        }
+      ]
+    }
+  ]
+}

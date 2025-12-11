@@ -18,3 +18,7 @@ company-config/
 local-config.*
 LOCAL-SETUP.md
 
+# MCP Publisher
+mcp-publisher.exe
+mcp-publisher
+

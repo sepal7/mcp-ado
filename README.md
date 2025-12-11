@@ -9,16 +9,84 @@ A comprehensive [Model Context Protocol (MCP)](https://modelcontextprotocol.io) 
 
 Easily install the MCP Server for Azure DevOps:
 
-**VS Code with GitHub Copilot:**
-[![Install in VS Code](https://img.shields.io/badge/Install-VS%20Code-blue?logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot-chat)
+<details>
+<summary><b>📘 Install with NPX in VS Code</b></summary>
 
-**VS Code Insiders:**
-[![Install in VS Code Insiders](https://img.shields.io/badge/Install-VS%20Code%20Insiders-purple?logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot-chat)
+1. Create `.vscode/mcp.json` in your project:
 
-**Cursor IDE:**
-[![Install in Cursor](https://img.shields.io/badge/Install-Cursor-black?logo=cursor)](https://cursor.sh/)
+```json
+{
+  "inputs": [
+    {
+      "id": "ado_org",
+      "type": "promptString",
+      "description": "Azure DevOps organization name (e.g. 'contoso')"
+    },
+    {
+      "id": "ado_project",
+      "type": "promptString",
+      "description": "Azure DevOps project name (e.g. 'MyProject')"
+    },
+    {
+      "id": "ado_pat",
+      "type": "promptString",
+      "description": "Azure DevOps Personal Access Token"
+    }
+  ],
+  "servers": {
+    "ado": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@sepal7/mcp-ado-server"],
+      "env": {
+        "AZURE_DEVOPS_ORG": "${input:ado_org}",
+        "AZURE_DEVOPS_PROJECT": "${input:ado_project}",
+        "AZURE_DEVOPS_PAT": "${input:ado_pat}"
+      }
+    }
+  }
+}
+```
 
-See [Installation](#-installation) below for detailed setup instructions.
+2. Save and click 'Start' in VS Code
+3. Switch to Agent Mode in GitHub Copilot Chat
+4. Select available tools
+
+</details>
+
+<details>
+<summary><b>📘 Install with NPX in VS Code Insiders</b></summary>
+
+Same steps as VS Code above, but use VS Code Insiders.
+
+</details>
+
+<details>
+<summary><b>📘 Install in Cursor IDE</b></summary>
+
+Add to `settings.json`:
+
+```json
+{
+  "mcp": {
+    "servers": {
+      "ado": {
+        "command": "npx",
+        "args": ["-y", "@sepal7/mcp-ado-server"],
+        "env": {
+          "AZURE_DEVOPS_ORG": "YourOrganization",
+          "AZURE_DEVOPS_PROJECT": "YourProject",
+          "AZURE_DEVOPS_PAT": "your_pat_token"
+        }
+      }
+    }
+  }
+}
+```
+
+Restart Cursor after configuration.
+
+</details>
 
 ## 📦 Available Tools (25+)
 
@@ -96,8 +164,79 @@ See [Installation](#-installation) below for detailed setup instructions.
 
 - Node.js 18+ installed
 - Azure DevOps Personal Access Token (PAT) with appropriate permissions
+- VS Code with GitHub Copilot Chat extension, VS Code Insiders, or Cursor IDE
 
 ### Installation
+
+#### ✨ Option 1: Install via NPX (Recommended)
+
+**For VS Code with GitHub Copilot:**
+
+1. Create `.vscode/mcp.json` in your project:
+
+```json
+{
+  "inputs": [
+    {
+      "id": "ado_org",
+      "type": "promptString",
+      "description": "Azure DevOps organization name (e.g. 'contoso')"
+    },
+    {
+      "id": "ado_project",
+      "type": "promptString",
+      "description": "Azure DevOps project name (e.g. 'MyProject')"
+    },
+    {
+      "id": "ado_pat",
+      "type": "promptString",
+      "description": "Azure DevOps Personal Access Token"
+    }
+  ],
+  "servers": {
+    "ado": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@sepal7/mcp-ado-server"],
+      "env": {
+        "AZURE_DEVOPS_ORG": "${input:ado_org}",
+        "AZURE_DEVOPS_PROJECT": "${input:ado_project}",
+        "AZURE_DEVOPS_PAT": "${input:ado_pat}"
+      }
+    }
+  }
+}
+```
+
+2. Save the file and click 'Start' in VS Code
+3. Switch to Agent Mode in GitHub Copilot Chat
+4. Select the available tools
+
+**For VS Code Insiders:** Same steps as above, but use VS Code Insiders.
+
+**For Cursor IDE:**
+
+Add to `settings.json`:
+
+```json
+{
+  "mcp": {
+    "servers": {
+      "ado": {
+        "command": "npx",
+        "args": ["-y", "@sepal7/mcp-ado-server"],
+        "env": {
+          "AZURE_DEVOPS_ORG": "YourOrganization",
+          "AZURE_DEVOPS_PROJECT": "YourProject",
+          "AZURE_DEVOPS_PAT": "your_pat_token"
+        }
+      }
+    }
+  }
+}
+```
+
+#### 📦 Option 2: Install from Source
 
 ```bash
 # Clone the repository
@@ -118,51 +257,7 @@ cp .env.example .env
 npm run test-connection
 ```
 
-### IDE Setup
-
-#### Cursor IDE
-
-Add to `settings.json`:
-
-```json
-{
-  "mcp": {
-    "servers": {
-      "ado": {
-        "command": "node",
-        "args": ["C:\\path\\to\\mcp-ado\\server.js"],
-        "env": {
-          "AZURE_DEVOPS_ORG": "YourOrganization",
-          "AZURE_DEVOPS_PROJECT": "YourProject",
-          "AZURE_DEVOPS_PAT": "your_pat_token"
-        }
-      }
-    }
-  }
-}
-```
-
-#### VS Code with GitHub Copilot Chat
-
-Add to `settings.json`:
-
-```json
-{
-  "chat.mcp.servers": {
-    "ado": {
-      "command": "node",
-      "args": ["C:\\path\\to\\mcp-ado\\server.js"],
-      "env": {
-        "AZURE_DEVOPS_ORG": "YourOrganization",
-        "AZURE_DEVOPS_PROJECT": "YourProject",
-        "AZURE_DEVOPS_PAT": "your_pat_token"
-      }
-    }
-  }
-}
-```
-
-**Important:** Restart VS Code after configuration changes.
+Then configure manually (see detailed guides below).
 
 For detailed setup instructions, see:
 - [Cursor Setup Guide](docs/02-CURSOR-SETUP.md)

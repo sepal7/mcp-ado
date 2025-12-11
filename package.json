@@ -1,6 +1,7 @@
 {
   "name": "@sepal7/mcp-ado-server",
   "version": "1.0.0",
+  "mcpName": "io.github.sepal7/azure-devops",
   "description": "MCP Server for Azure DevOps - Comprehensive 25+ tools with multi-project support, WIQL queries, and generic API tool for extensibility",
   "main": "server.js",
   "type": "module",
