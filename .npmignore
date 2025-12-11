@@ -61,3 +61,6 @@ mcp-publisher
 *.exe
 *.tar.gz
 
+# MCP Registry tokens
+.mcpregistry_*
+
